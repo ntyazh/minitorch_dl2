@@ -21,6 +21,9 @@ class Graph:
 
 
 def simple(N: int) -> Graph:
+    """
+    dataset with linear partibility, optimal line is vertical
+    """
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -30,6 +33,9 @@ def simple(N: int) -> Graph:
 
 
 def diag(N: int) -> Graph:
+    """
+    dataset wiith linear partibility, optimal line is inclined at an angle
+    """
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -39,6 +45,9 @@ def diag(N: int) -> Graph:
 
 
 def split(N: int) -> Graph:
+    """
+    points from different classes alternate between themselves
+    """
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -48,6 +57,9 @@ def split(N: int) -> Graph:
 
 
 def xor(N: int) -> Graph:
+    """
+    points form a cross
+    """
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -57,6 +69,9 @@ def xor(N: int) -> Graph:
 
 
 def circle(N: int) -> Graph:
+    """
+    points of the one class are inscribed in a circle of points of the other class
+    """
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -67,6 +82,9 @@ def circle(N: int) -> Graph:
 
 
 def spiral(N: int) -> Graph:
+    """
+    points form two different spirals, inscribed in each other
+    """
     def x(t: float) -> float:
         return t * math.cos(t) / 20.0
 
