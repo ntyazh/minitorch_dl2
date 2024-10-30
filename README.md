@@ -11,7 +11,10 @@ To access the autograder:
 * Module 4: https://classroom.github.com/a/04QA6HZK
 * Quizzes: https://classroom.github.com/a/bGcGc12k
 
+
+
 Initialization of the model from the Module 0:
+
 ![pl1](https://github.com/ntyazh/minitorch_dl2/blob/main/images/newplot.png)
 
 with parameters:
