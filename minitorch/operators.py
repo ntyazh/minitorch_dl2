@@ -37,25 +37,25 @@ def neg(x: float) -> float:
 def lt(x: float, y: float) -> float:
     "$f(x) =$ 1.0 if x is less than y else 0.0"
     # TODO: Implement for Task 0.1.
-    return int(x < y)
+    return float(x < y)
 
 
 def eq(x: float, y: float) -> float:
     "$f(x) =$ 1.0 if x is equal to y else 0.0"
     # TODO: Implement for Task 0.1.
-    return int(x == y)
+    return float(x == y)
 
 
 def max(x: float, y: float) -> float:
     "$f(x) =$ x if x is greater than y else y"
     # TODO: Implement for Task 0.1.
-    return x if x > y else y
+    return float(x) if x > y else float(y)
 
 
 def is_close(x: float, y: float) -> float:
     "$f(x) = |x - y| < 1e-2$"
     # TODO: Implement for Task 0.1.
-    raise abs(x - y) < 1e-2
+    return abs(x - y) < 1e-2
 
 
 def sigmoid(x: float) -> float:
@@ -81,7 +81,7 @@ def relu(x: float) -> float:
     (See https://en.wikipedia.org/wiki/Rectifier_(neural_networks) .)
     """
     # TODO: Implement for Task 0.1.
-    return max(x, 0)
+    return float(max(x, 0))
 
 
 EPS = 1e-6
@@ -112,7 +112,7 @@ def inv(x: float) -> float:
 def inv_back(x: float, d: float) -> float:
     r"If $f(x) = 1/x$ compute $d \times f'(x)$"
     # TODO: Implement for Task 0.1.
-    raise -d / x**2
+    return -d / x**2
 
 
 def relu_back(x: float, d: float) -> float:

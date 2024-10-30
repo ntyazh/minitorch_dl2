@@ -72,13 +72,27 @@ class ScalarTrain:
         self.max_epochs = max_epochs
         self.model = Network(self.hidden_layers)
         optim = minitorch.SGD(self.model.parameters(), learning_rate)
+        print(self.model.parameters())
+
+        # x_1, x_2 = data.X[0]
+        # x_1 = minitorch.Scalar(x_1)
+        # x_2 = minitorch.Scalar(x_2)
+        # out = self.model.forward((x_1, x_2))
+        # def check(node, c):
+        #     c += 1
+        #     for neigh in node.parents:
+        #         c = check(neigh, c)
+        #     return c
+        # c = 0
+        # print(check(out, c))
+
 
         losses = []
         for epoch in range(1, self.max_epochs + 1):
+            # print(self.model.layer1.weights[1])
             total_loss = 0.0
             correct = 0
             optim.zero_grad()
-
             # Forward
             loss = 0
             for i in range(data.N):
@@ -87,7 +101,6 @@ class ScalarTrain:
                 x_1 = minitorch.Scalar(x_1)
                 x_2 = minitorch.Scalar(x_2)
                 out = self.model.forward((x_1, x_2))
-
                 if y == 1:
                     prob = out
                     correct += 1 if out.data > 0.5 else 0
@@ -96,6 +109,7 @@ class ScalarTrain:
                     correct += 1 if out.data < 0.5 else 0
                 loss = -prob.log()
                 (loss / data.N).backward()
+                # print(x_1.derivative, x_2.derivative)
                 total_loss += loss.data
 
             losses.append(total_loss)
@@ -109,8 +123,8 @@ class ScalarTrain:
 
 
 if __name__ == "__main__":
-    PTS = 50
+    PTS = 500
     HIDDEN = 2
-    RATE = 0.5
+    RATE = 0.001
     data = minitorch.datasets["Simple"](PTS)
     ScalarTrain(HIDDEN).train(data, RATE)

@@ -23,7 +23,9 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
         An approximation of $f'_i(x_0, \ldots, x_{n-1})$
     """
     # TODO: Implement for Task 1.1.
-    raise NotImplementedError('Need to implement for Task 1.1')
+    vals_list, eps_vals = list(vals), list(vals)
+    eps_vals[arg] = eps_vals[arg] + epsilon
+    return (f(*eps_vals) - f(*vals_list)) / epsilon
 
 
 variable_count = 1
@@ -61,8 +63,21 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
+    def visit(node, visited_nodes):
+        if node.unique_id in visited_nodes.keys():
+            return
+
+        for neigh in node.parents:
+            visit(neigh, visited_nodes)
+        visited_nodes[node.unique_id] = node
+
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError('Need to implement for Task 1.4')
+    visited_nodes = dict()
+    visit(variable, visited_nodes)
+
+    topological_vars = list(visited_nodes.values())
+    topological_vars.reverse()
+    return topological_vars
 
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
@@ -77,7 +92,21 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
     """
     # TODO: Implement for Task 1.4.
-    raise NotImplementedError('Need to implement for Task 1.4')
+    queue = topological_sort(variable)
+    var_derivs = {variable.unique_id: deriv}
+    for scalar in queue:
+        deriv = var_derivs[scalar.unique_id]
+        if scalar.is_leaf():
+            scalar.accumulate_derivative(deriv)
+            var_derivs.update({scalar.unique_id: scalar.derivative})
+        else:
+            chain_derivs = scalar.chain_rule(deriv)
+            for var, chain_deriv in chain_derivs:
+                if var.unique_id in var_derivs.keys():
+                    var_derivs[var.unique_id] += chain_deriv
+                else:
+                    var_derivs[var.unique_id] = chain_deriv
+
 
 
 @dataclass

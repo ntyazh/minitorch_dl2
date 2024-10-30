@@ -60,7 +60,7 @@ class Module:
         "Enumerate over all the parameters of this module and its descendents."
         # TODO: Implement for Task 0.4.
         named_params = self.named_parameters()
-        return list(named_params.values())
+        return list(map(lambda x: x[1], list(named_params)))
 
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
