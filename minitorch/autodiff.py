@@ -63,18 +63,19 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
-    def visit(node, visited_nodes):
-        if node.unique_id in visited_nodes.keys():
+    def visit(node):
+        if node.unique_id in visited_nodes.keys() or node.is_constant():
             return
 
-        for neigh in node.parents:
-            visit(neigh, visited_nodes)
+        if not node.is_leaf():
+            for neigh in node.parents:
+                visit(neigh)
+
         visited_nodes[node.unique_id] = node
 
     # TODO: Implement for Task 1.4.
     visited_nodes = dict()
-    visit(variable, visited_nodes)
-
+    visit(variable)
     topological_vars = list(visited_nodes.values())
     topological_vars.reverse()
     return topological_vars
@@ -98,7 +99,7 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         deriv = var_derivs[scalar.unique_id]
         if scalar.is_leaf():
             scalar.accumulate_derivative(deriv)
-            var_derivs.update({scalar.unique_id: scalar.derivative})
+            # var_derivs.update({scalar.unique_id: scalar.grad})
         else:
             chain_derivs = scalar.chain_rule(deriv)
             for var, chain_deriv in chain_derivs:
@@ -127,3 +128,4 @@ class Context:
     @property
     def saved_tensors(self) -> Tuple[Any, ...]:
         return self.saved_values
+

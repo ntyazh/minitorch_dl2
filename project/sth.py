@@ -1,0 +1,2 @@
+from math_interface import render_math_sandbox
+render_math_sandbox()

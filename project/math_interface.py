@@ -53,7 +53,7 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
                 else:
                     out.backward()
             if use_tensor:
-                scatter = go.Scatter(mode="lines", x=xs, y=[x.grad[0] for x in x_var])
+                scatter = go.Scatter(mode="lines", x=xs, y=[x.grad.item() for x in x_var])
             else:
                 scatter = go.Scatter(
                     mode="lines", x=xs, y=[x.derivative for x in x_var]
@@ -103,8 +103,8 @@ def render_math_sandbox(use_scalar=False, use_tensor=False):
                         y1 = minitorch.tensor([y])
                         out = scalar(x1, y1)
                         out.backward(minitorch.tensor([1]))
-                        oa.append((x, y, x1.derivative[0]))
-                        ob.append((x, y, y1.derivative[0]))
+                        oa.append((x, y, x1.grad[0]))
+                        ob.append((x, y, y1.grad[0]))
                 else:
                     for y in ys:
                         x1 = minitorch.Scalar(x)

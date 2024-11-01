@@ -220,3 +220,4 @@ def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
     return reduce(mul, 1)(ls)
+
