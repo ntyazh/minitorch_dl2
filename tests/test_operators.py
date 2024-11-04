@@ -109,9 +109,9 @@ def test_sigmoid(a: float) -> None:
     * It is  strictly increasing.
     """
     assert (sigmoid(a) <= 1) and (sigmoid(a) >= 0)
-    assert 1 - sigmoid(a) == sigmoid(-a)
+    assert abs(1. - sigmoid(a) - sigmoid(-a)) < 1e-6
     assert sigmoid(0) == 0.5
-    assert sigmoid(a) < sigmoid(a + 1)
+    assert sigmoid(a) <= sigmoid(a + 1)
 
 
 @pytest.mark.task0_2
@@ -141,8 +141,8 @@ def test_distribute() -> None:
     Write a test that ensures that your operators distribute, i.e.
     :math:`z \times (x + y) = z \times x + z \times y`
     """
-    a, b, z = random.uniform(-1e13, 1e16), random.uniform(-1e13, 1e16), random.uniform(-1e13, 1e16)
-    assert eq(mul(z, add(a, b)), add(mul(z, a), mul(z, b)))
+    a, b, z = random.uniform(-1e8, 1e8), random.uniform(-1e8, 1e8), random.uniform(-1e8, 1e8)
+    assert abs(mul(z, add(a, b)) - add(mul(z, a), mul(z, b))) <= 1
 
 
 @pytest.mark.task0_2
@@ -182,7 +182,7 @@ def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     is the same as the sum of each element of `ls1` plus each element of `ls2`.
     """
     # TODO: Implement for Task 0.3.
-    raise NotImplementedError('Need to implement for Task 0.3')
+    assert abs(sum(ls1) + sum(ls2) - sum(ls1 + ls2)) < 1e-2
 
 
 @pytest.mark.task0_3

@@ -6,6 +6,7 @@ import minitorch
 
 from . import operators
 from .autodiff import Context
+from .operators import sigmoid
 
 if TYPE_CHECKING:
     from typing import Tuple
@@ -136,7 +137,7 @@ class Neg(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, a: float) -> float:
         # TODO: Implement for Task 1.2.
-        return operators.neg(a)
+        return float(operators.neg(a))
 
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
@@ -157,7 +158,8 @@ class Sigmoid(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> float:
         # TODO: Implement for Task 1.4.
         (a,) = ctx.saved_values
-        return operators.mul(operators.mul(operators.sigmoid(a), operators.sigmoid(1 - a)), d_output)
+        sig_a = sigmoid(a)
+        return operators.mul(operators.mul(sig_a, operators.sigmoid(-a)), d_output)
 
 
 class ReLU(ScalarFunction):

@@ -211,7 +211,6 @@ class SimpleOps(TensorOps):
             out_shape = list(a.shape)
             out_shape[dim] = 1
 
-            # Other values when not sum.
             out = a.zeros(tuple(out_shape))
             out._tensor._storage[:] = start
 

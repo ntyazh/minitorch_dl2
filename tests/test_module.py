@@ -49,10 +49,9 @@ def test_stacked_demo() -> None:
     np = dict(mod.named_parameters())
 
     x = str(mod)
-    print(x)
+    # print(x)
     assert mod.p1.value == 5
     assert mod.non_param == 10
-
     assert np["p1"].value == 5
     assert np["a.p2"].value == 10
     assert np["b.c.p3"].value == 15

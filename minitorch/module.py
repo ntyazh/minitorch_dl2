@@ -51,8 +51,12 @@ class Module:
         """
         # TODO: Implement for Task 0.4.
         params = self._parameters
-        for child in self.modules():
-            params.update(child.named_parameters())
+        # print(params)
+        # print(self._modules)
+        for child in self._modules:
+            child_named_params = self._modules[child].named_parameters()
+            for child_param in child_named_params:
+                params.update({child + '.' + child_param[0]: child_param[1]})
         return params.items()
 
     def parameters(self) -> Sequence[Parameter]:

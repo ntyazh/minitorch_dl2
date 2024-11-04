@@ -121,7 +121,7 @@ class Sigmoid(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tensor:
         # TODO: Implement for Task 2.4.
         (t1,) = ctx.saved_values
-        return t1.f.mul_zip(t1.f.mul_zip(t1.f.sigmoid_map(t1), t1.f.sigmoid_map(tensor([1.]) - t1)), grad_output)
+        return t1.f.mul_zip(t1.f.mul_zip(t1.f.sigmoid_map(t1), t1.f.sigmoid_map(-t1)), grad_output)
 
 
 class ReLU(Function):
@@ -222,10 +222,10 @@ class Permute(Function):
     @staticmethod
     def forward(ctx: Context, a: Tensor, order: Tensor) -> Tensor:
         # TODO: Implement for Task 2.3.
-        inv_order = np.zeros_like(order.to_numpy())
+        inv_order = np.zeros(order.shape[-1], dtype=int)
         order_int = []
         for idx, val in enumerate(list(order.to_numpy())):
-            inv_order[int(val)] = idx  # To undo the new permutation in backward
+            inv_order[int(val)] = idx
             order_int.append(int(val))
         ctx.save_for_backward(inv_order)
         return a._new(a._tensor.permute(*order_int))
@@ -234,7 +234,7 @@ class Permute(Function):
     def backward(ctx: Context, grad_output: Tensor) -> Tuple[Tensor, float]:
         # TODO: Implement for Task 2.4.
         (order,) = ctx.saved_values
-        return grad_output._new(grad_output._tensor.permute(*order)), 0.
+        return grad_output._new(grad_output._tensor.permute(*order)), 0.0
 
 
 class View(Function):
@@ -405,6 +405,7 @@ def grad_check(f: Any, *vals: Tensor) -> None:
         x.zero_grad_()
     random.seed(10)
     out = f(*vals)
+    print(f, out)
     out.sum().backward()
     err_msg = """
 
@@ -416,7 +417,6 @@ Received derivative %f for argument %d and index %s,
 but was expecting derivative %f from central difference.
 
 """
-
     for i, x in enumerate(vals):
         ind = x._tensor.sample()
         check = grad_central_difference(f, *vals, arg=i, ind=ind)

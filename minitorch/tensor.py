@@ -217,9 +217,9 @@ class Tensor:
     def mean(self, dim: Optional[int] = None) -> Tensor:
         "Compute the mean over dimension `dim`"
         if dim is not None:
-            return self.sum(dim) / self.shape[dim]
+            return self.sum(dim) / tensor(self.shape[dim])
         else:
-            return self.sum() / self.size
+            return self.sum() / tensor(self.size)
 
     def permute(self, *order: int) -> Tensor:
         "Permute tensor dimensions to *order"
