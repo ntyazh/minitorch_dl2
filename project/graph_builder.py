@@ -1,8 +1,7 @@
 import networkx as nx
 import sys
-sys.path.append('../minitorch')
-
 import minitorch
+sys.path.append('../minitorch')
 
 if hasattr(minitorch, "Scalar"):
     Scalar = minitorch.Scalar

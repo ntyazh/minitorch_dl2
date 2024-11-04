@@ -267,7 +267,7 @@ def tensor_map(
         # TODO: Implement for Task 2.3.
         out_index, in_index = np.zeros_like(out_shape), np.zeros_like(in_shape)
         for i in range(len(out)):
-            to_index(i, out_shape, out_index) # i is index in the 1d storage so we have to transform it to index of tensor
+            to_index(i, out_shape, out_index)  # i is index in the 1d storage so we have to transform it to index of tensor
             broadcast_index(out_index, out_shape, in_shape, in_index)
             storage_ind_in, storage_ind_out = index_to_position(in_index, in_strides), index_to_position(out_index, out_strides)
             out[storage_ind_out] = fn(in_storage[storage_ind_in])

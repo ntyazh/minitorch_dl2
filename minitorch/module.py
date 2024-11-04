@@ -55,7 +55,6 @@ class Module:
             params.update(child.named_parameters())
         return params.items()
 
-
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
         # TODO: Implement for Task 0.4.

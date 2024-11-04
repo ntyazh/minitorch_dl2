@@ -148,7 +148,6 @@ def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[fl
     return mapper
 
 
-
 def negList(ls: Iterable[float]) -> Iterable[float]:
     "Use `map` and `neg` to negate each element in `ls`"
     return map(neg)(ls)
@@ -177,7 +176,6 @@ def zipWith(
             new_ls.append(fn(ls1[i], ls2[i]))
         return new_ls
     return zipper
-
 
 
 def addLists(ls1: Iterable[float], ls2: Iterable[float]) -> Iterable[float]:
@@ -220,4 +218,3 @@ def prod(ls: Iterable[float]) -> float:
     "Product of a list using `reduce` and `mul`."
     # TODO: Implement for Task 0.3.
     return reduce(mul, 1)(ls)
-

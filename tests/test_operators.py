@@ -122,7 +122,6 @@ def test_transitive(a: float, b: float, c: float) -> None:
         assert lt(a, c)
 
 
-
 @pytest.mark.task0_2
 def test_symmetric() -> None:
     """

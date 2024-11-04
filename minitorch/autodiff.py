@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple
+from typing import Any, Iterable, Tuple
 
 from typing_extensions import Protocol
 
@@ -109,7 +109,6 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
                     var_derivs[var.unique_id] = chain_deriv
 
 
-
 @dataclass
 class Context:
     """
@@ -128,4 +127,3 @@ class Context:
     @property
     def saved_tensors(self) -> Tuple[Any, ...]:
         return self.saved_values
-

@@ -153,7 +153,6 @@ class Sigmoid(ScalarFunction):
         ctx.save_for_backward(a)
         return operators.sigmoid(a)
 
-
     @staticmethod
     def backward(ctx: Context, d_output: float) -> float:
         # TODO: Implement for Task 1.4.

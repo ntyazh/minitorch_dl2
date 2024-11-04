@@ -66,7 +66,6 @@ def to_index(ordinal: int, shape: Shape, out_index: OutIndex) -> None:
         ordinal //= shape[dim]
 
 
-
 def broadcast_index(
     big_index: Index, big_shape: Shape, shape: Shape, out_index: OutIndex
 ) -> None:
@@ -111,7 +110,7 @@ def shape_broadcast(shape1: UserShape, shape2: UserShape) -> UserShape:
     """
     # TODO: Implement for Task 2.2.
     if len(shape1) > len(shape2):
-        shape2 = [1] * (len(shape1) - len(shape2)) + list(shape2) #rule3 of broadcasting
+        shape2 = [1] * (len(shape1) - len(shape2)) + list(shape2)
     else:
         shape1 = [1] * (len(shape2) - len(shape1)) + list(shape1)
     assert len(shape1) == len(shape2)
@@ -274,5 +273,3 @@ class TensorData:
             else:
                 s += " "
         return s
-
-
