@@ -138,7 +138,6 @@ class ReLU(Function):
         return t1.f.relu_back_zip(t1, grad_output)
 
 
-
 class Log(Function):
     @staticmethod
     def forward(ctx: Context, t1: Tensor) -> Tensor:
